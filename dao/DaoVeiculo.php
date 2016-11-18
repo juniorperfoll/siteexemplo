@@ -30,6 +30,22 @@ class DaoVeiculo {
         $p_sql->execute();
         return $p_sql->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    public function listarHome() {
+        $sql = "SELECT veiculo.id,"
+                . " veiculo.descricao,"
+                . " veiculo.preco,"
+                . " veiculo.imagem,"
+                . " marca.descricao as marca"
+                . " FROM veiculo, marca"
+                . " WHERE veiculo.marca_id = marca.id "
+                . "   AND veiculo.destaque = 1"
+                . " ORDER BY veiculo.descricao";
+
+        $p_sql = Conexao::getInstance()->prepare($sql);
+        $p_sql->execute();
+        return $p_sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     public function getVeiculo($id) {
         $sql = "SELECT veiculo.id,"
